@@ -40,5 +40,10 @@ describe('geosearch', () => {
             type: 'FeatureCollection',
             features: [feature1],
         });
+
+        // edge case with point and buffer 0
+        await expect(
+            geosearch.find([13.40829849243164, 52.51995849537152], 0)
+        ).rejects.toEqual('Radius cannot be 0 or lower');
     });
 });

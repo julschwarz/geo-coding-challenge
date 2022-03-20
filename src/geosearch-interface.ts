@@ -1,4 +1,4 @@
-import { Position, Polygon, FeatureCollection, Point } from '@vpriem/geojson';
+import { FeatureCollection, Point, Polygon, Position } from '@vpriem/geojson';
 
 export interface GeosearchInterface {
     /**
