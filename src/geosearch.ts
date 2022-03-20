@@ -3,8 +3,9 @@ import circle from '@turf/circle';
 import { point } from '@turf/helpers';
 import { FeatureCollection, Point, Polygon, Position } from '@vpriem/geojson';
 import { GeosearchInterface } from './geosearch-interface';
+
 export class Geosearch implements GeosearchInterface {
-    geosearchFeatureCollection: FeatureCollection<Polygon | Point> | null;
+    geosearchFeatureCollection?: FeatureCollection<Polygon | Point> | null;
 
     init(data: FeatureCollection<Polygon | Point>): Promise<void> {
         this.geosearchFeatureCollection = data;

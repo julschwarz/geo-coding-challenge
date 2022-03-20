@@ -81,7 +81,7 @@ describe('geosearch', () => {
         });
 
         describe('initializing and nulling of objects', () => {
-            it('Throw error when ressource was shut down', async () => {
+            it('throw error when ressource was shut down', async () => {
                 await geosearch.shutdown();
                 await expect(
                     geosearch.find([13.409720063209534, 52.52049055154815], 0)
@@ -90,7 +90,7 @@ describe('geosearch', () => {
                 );
             });
 
-            it('Throw error when ressource was not initialized', async () => {
+            it('throw error when ressource was not initialized', async () => {
                 const newGeosearch = new Geosearch();
                 await expect(
                     newGeosearch.find(

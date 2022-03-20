@@ -64,7 +64,7 @@ describe('geofence', () => {
         });
 
         describe('initializing and nulling of objects', () => {
-            it('Throw error when ressource was shut down', async () => {
+            it('throw error when ressource was shut down', async () => {
                 await geofence.shutdown();
                 await expect(
                     geofence.set([13.409720063209534, 52.52049055154815])
@@ -73,7 +73,7 @@ describe('geofence', () => {
                 );
             });
 
-            it('Throw error when ressource was not initialized', async () => {
+            it('throw error when ressource was not initialized', async () => {
                 const newGeofence = new Geofence();
                 await expect(
                     newGeofence.set([13.409720063209534, 52.52049055154815])

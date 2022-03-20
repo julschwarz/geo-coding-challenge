@@ -1,6 +1,7 @@
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { FeatureCollection, Polygon, Position } from '@vpriem/geojson';
 import { GeofenceInterface } from './geofence-interface';
+
 export class Geofence implements GeofenceInterface {
     fence?: FeatureCollection<Polygon> | null;
 
@@ -38,7 +39,6 @@ export class Geofence implements GeofenceInterface {
     }
 
     shutdown(): Promise<void> {
-        // An object is said to be "garbage", or collectible if there are zero references pointing to it.
         this.fence = null;
         return Promise.resolve();
     }
