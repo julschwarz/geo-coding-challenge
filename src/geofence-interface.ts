@@ -14,7 +14,7 @@ export interface GeofenceInterface {
     /**
      * Return a feature collection of polygons in which the position is inside
      * or an empty feature collection if not
-     *s
+     *
      * @async
      * @param {Position} position
      * @return {FeatureCollection<Polygon>}
