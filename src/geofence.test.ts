@@ -63,7 +63,7 @@ describe('geofence', () => {
             });
         });
 
-        describe('initializing and nulling of objects', () => {
+        describe('initializing and shutting down objects', () => {
             it('throw error when ressource was shut down', async () => {
                 await geofence.shutdown();
                 await expect(

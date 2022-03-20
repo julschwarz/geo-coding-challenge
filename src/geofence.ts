@@ -3,7 +3,7 @@ import { FeatureCollection, Polygon, Position } from '@vpriem/geojson';
 import { GeofenceInterface } from './geofence-interface';
 
 export class Geofence implements GeofenceInterface {
-    fence?: FeatureCollection<Polygon> | null;
+    fence?: FeatureCollection<Polygon>;
 
     init(data: FeatureCollection<Polygon>): Promise<void> {
         this.fence = data;
@@ -39,7 +39,7 @@ export class Geofence implements GeofenceInterface {
     }
 
     shutdown(): Promise<void> {
-        this.fence = null;
+        delete this.fence;
         return Promise.resolve();
     }
 }

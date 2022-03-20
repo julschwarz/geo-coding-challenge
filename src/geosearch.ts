@@ -5,7 +5,7 @@ import { FeatureCollection, Point, Polygon, Position } from '@vpriem/geojson';
 import { GeosearchInterface } from './geosearch-interface';
 
 export class Geosearch implements GeosearchInterface {
-    geosearchFeatureCollection?: FeatureCollection<Polygon | Point> | null;
+    geosearchFeatureCollection?: FeatureCollection<Polygon | Point>;
 
     init(data: FeatureCollection<Polygon | Point>): Promise<void> {
         this.geosearchFeatureCollection = data;
@@ -13,7 +13,7 @@ export class Geosearch implements GeosearchInterface {
     }
 
     shutdown(): Promise<void> {
-        this.geosearchFeatureCollection = null;
+        delete this.geosearchFeatureCollection;
         return Promise.resolve();
     }
 
