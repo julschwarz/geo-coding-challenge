@@ -1,29 +1,45 @@
-import inside from '@turf/inside';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { FeatureCollection, Polygon, Position } from '@vpriem/geojson';
 import { GeofenceInterface } from './geofence-interface';
 export class Geofence implements GeofenceInterface {
-    fence: FeatureCollection<Polygon>;
+    fence?: FeatureCollection<Polygon> | null;
 
     init(data: FeatureCollection<Polygon>): Promise<void> {
         this.fence = data;
-        return new Promise((resolve) => resolve());
+        return Promise.resolve();
     }
 
+    /**
+     * Takes a {@link Position} and filters the fence for polygons that contain it.
+     * If the position lies on the boundary of a geofence polygon the polygon won't be returned
+     *
+     * @param {Position} position input coordinates
+     * @returns {Promise<FeatureCollection<Polygon>>} polygons that contain the position
+     */
     set(position: Position): Promise<FeatureCollection<Polygon>> {
+        if (!this.fence)
+            return Promise.reject(
+                new Error(
+                    'Geofence object is not initialized. Call init() first.'
+                )
+            );
+
         const overlappingFencePolygons = this.fence.features.filter(
-            (fencePolygon) => inside(position, fencePolygon.geometry)
+            (fencePolygon) =>
+                booleanPointInPolygon(position, fencePolygon.geometry, {
+                    ignoreBoundary: true,
+                })
         );
 
-        return new Promise<FeatureCollection<Polygon>>((resolve) => {
-            resolve({
-                type: 'FeatureCollection',
-                features: overlappingFencePolygons,
-            });
+        return Promise.resolve({
+            type: 'FeatureCollection',
+            features: overlappingFencePolygons,
         });
     }
 
     shutdown(): Promise<void> {
-        this.fence.features = [];
-        return new Promise((resolve) => resolve());
+        // An object is said to be "garbage", or collectible if there are zero references pointing to it.
+        this.fence = null;
+        return Promise.resolve();
     }
 }
